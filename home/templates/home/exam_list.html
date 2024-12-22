@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <title>Exams</title>
+        <style>
+                body {
+        background-color: #dae8e2;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #dae8e2;
+        text-align: center;
+        padding: 10px 0;
+        z-index: 999;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .nav-menu li {
+        display: inline-block;
+        margin-right: 20px;
+        padding: 10px  15px;
+    }
+    .nav-menu li:not(.logout):hover{
+        background-color: #ceded7;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    .nav-menu a {
+        color: black;
+        text-decoration: none;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .logout {
+        position: absolute;
+        right: 0;
+        background-color: #f56478;
+        border-radius: 5px;
+        font-family: arial;
+        cursor: pointer;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        nav ul {
+        flex-direction: column;
+        align-items: center;
+        }
+        .logout {
+        position: relative;
+        right: auto;
+        }
+    }
+    .logout:hover {
+        background-color: #e35f71;
+    }
+
+    .home-button {
+        position: absolute;
+        left: 0;
+        margin-top: 8px;
+        margin-left: 20px;
+    }
+    #tedu {
+        display: inline;
+        margin-left: 5px;
+        position: relative;
+        top: 3px;
+        font-size: 19px;
+    }
+
+    .list-group-item {
+      background-color: #e4eced;
+    }
+
+    .list-group-item:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+      transition: transform 0.3s ease-in-out;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      padding-top: 60px;
+    }
+
+    .exam-details {
+      flex: 1;
+    }
+
+    .exam-actions {
+      margin-left: 20px;
+    }
+
+    .exam-actions .btn {
+      margin-right: 10px;
+    }
+
+    .details-btn {
+      background-color: #b5b5b5;
+    }
+    .details-btn:hover {
+      background-color: #adadad;
+    }
+
+    .modal-content {
+      background-color: #e1edf2;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+    }
+
+    .modal-header {
+      background-color: #e1edf2;
+      padding: 10px;
+      border-bottom: none;
+    }
+
+    .modal-footer {
+      background-color: #e1edf2;
+      padding: 10px;
+      border-top: none;
+    }
+
+    .modal-body .due-date {
+      font-weight: bold;
+      color: #ff9900;
+      font-size: 16px;
+      margin-bottom: 10px;
+      padding: 5px;
+    }
+
+    .modal-title {
+      font-weight: bold;
+      color: #333;
+      font-size: 24px;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+
+    .panel-heading h4 {
+  margin-top: 0;
+}
+
+.panel-body {
+  padding: 20px;
+}
+
+.dropdown-menu {
+  min-width: 100px;
+}
+
+.btn-secondary.dropdown-toggle {
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown-item {
+  padding: 10px;
+}
+
+.dropdown-item:hover {
+  background-color: #ededed;
+}
+
+.panel.panel-default {
+  background-color: #cfe6d5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.new-exam-btn {
+  position: absolute;
+  left: -45px;
+  top: 6px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.exam-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #d9dadb;
+  border-bottom: 1px solid #ccc;
+}
+
+.exam-list-header > div {
+  flex: 1;
+  text-align: left;
+}
+
+.exam-list-header .title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.exam-list-header .due-date {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.exam-list-header .status {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.exam-list-header .action {
+  font-weight: bold;
+  font-size: 16px;
+  text-align: right;
+}
+
+.exam-list-header {
+  border-bottom: 0.2rem solid #000;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+#exam-list-container {
+  position: relative;
+}
+
+.exam-details {
+  margin-right: 20px;
+}
+
+.due-date {
+  margin-left: 20px;
+  font-size: 16px;
+  color: #666;
+}
+
+.exam-actions {
+  margin-left: 20px;
+}
+
+#mytable tr:hover {
+  transform: scale(1.009);
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.exam-row:not(.edit-button, .delete-button) {
+  cursor: pointer;
+}
+
+#myTable thead th {
+  cursor: pointer;
+}
+
+.asc i {
+  transform: rotate(0deg);
+}
+
+.desc i {
+  transform: rotate(180deg);
+}
+
+.dp {
+  font-size: 19px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  outline: none;
+  width: 140px;
+}
+.dp:hover {
+  cursor: pointer;
+}
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+.new-exam-button {
+  background-color: #558ce6;
+}
+
+.new-exam-button:hover {
+  background-color: #4d80d1;
+}
+
+.cb:hover {
+  cursor: pointer;
+}
+
+.lb:hover {
+  cursor: pointer;
+}
+
+.title {
+   /* adjust the value as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+      </style>
+    </head>
+    <body>
+        <nav class="nav-menu">
+            <a href="{% url 'home' %}">
+                <div class="home-button">
+                    <i class="fa-solid fa-calendar-check fa-2xl"></i><h3 id="tedu"><strong>Todue</strong></h3>
+                </div>
+            </a>
+            <ul>
+                <a href="{% url 'dashboard' %}"><li>Dashboard</li></a>
+                <a href="{% url 'assignment_list' %}"><li>Assignments</li></a>
+                <a href="{% url 'exam_list' %}"><li>Exams</li></a>
+                <a href="{% url 'calendar' %}"><li>Calendar</li></a>
+                <a href="{% url 'settings' %}"><li>Settings</li></a>
+                {% if user.is_authenticated %}
+                    <form id="logout-form" action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <li class="logout" id="logout-link">Logout</li>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}"><li class="logout">Login or Signup</li></a>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="container mt-5">
+          <h1 class="text-center mb-4">Exams</h1>
+          <div style="border-top: 3px solid #ccc; margin: 20px 10%; width: 80%; border-color: black; padding-bottom: 36px;"> </div>
+          <div class="row">
+            <div class="col-md-8" id="exam-list-container">
+              <div class="card" style="margin-bottom: 15px; width: 300px;">
+                <input id="search-input" class="form-control" type="text" placeholder="Search">
+            </div>
+            <div style="float: right; margin-top: -52px;">
+                    <a href="{% url 'create_exam' %}" title="New exam" style="color: white; text-decoration: none; outline: none">
+                      <button class="btn new-exam-button btn-primary" title="New Exam">New Exam</button>
+                    </a>
+            </div>
+            <table id="myTable" class="table table-striped table-bordered">
+              <thead style="border-bottom: 3px solid #000;">
+                  <tr>
+                      <th data-column="title" data-order="desc" style="font-weight: 800; width: 160px;">
+                          Title
+                          <span class="desc"><i class="fa-solid fa-arrow-down"></i></span>
+                      </th>
+                      <th data-column="due_date" data-order="desc" style="font-weight: 800;">
+                          Exam Date
+                          <span class="desc"><i class="fa-solid fa-arrow-down"></i></span>
+                      </th>
+                      <th data-column="status" data-order="desc" style="font-weight: 800;">
+                          Status
+                      </th>
+                      <th data-column="action" data-order="desc" style="font-weight: 800;">
+                          Action
+                      </th>
+                  </tr>
+              </thead>
+              <tbody id="mytable">
+                  {% for exam in exams %}
+                  <tr class="exam-row" data-modal-id="examModal-{{ exam.pk }}">
+                      <td title="View details" style="font-size: 18px; font-weight: 500">{% if exam.title %}{{ exam.title }}{% else %}No title{% endif %}</td>
+                      <td title="View details" style="font-size: 18px; font-weight: 500">{{ exam.exam_date|date:"M. d, Y" }} At {{ exam.due_time|time:"g:i A" }}</td>
+                      <td>
+                          <select class="dp" onchange="changeBackgroundColor(this)" value="{{ exam.status }}">
+                              <option value="Not started" style="background-color: #f73b4b;" selected>Not Started</option>
+                              <option value="In progress" style="background-color: #fadf11;">In Progress</option>
+                              <option value="Completed" style="background-color: #25fa11;">Completed</option>
+                          </select>
+                      </td>
+                      <td>
+                          <a href="{% url 'edit_exam' exam.pk %}" class="btn btn-primary btn-sm me-2" style="font-size: 16px;">Edit</a>
+                          <a href="{% url 'delete_exam' exam.pk %}" class="btn btn-danger btn-sm" style="font-size: 16px;">Delete</a>
+                      </td>
+                  </tr>
+                  <!-- Modal -->
+                  <div class="modal fade" id="examModal-{{ exam.pk }}" tabindex="-1" aria-labelledby="examModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="examModalLabel">{% if exam.title %}{{ exam.title }}{% else %}No title{% endif %}</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                  <p>{% if exam.description %}{{ exam.description }}{% else %}No description{% endif %}</p>
+                                  <span class="due-date">Due Date: {{ exam.exam_date|date:"M. d, Y" }} At {{ exam.due_time|time:"g:i A" }}</span>
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  {% endfor %}
+              </tbody>
+          </table>
+            </div>
+            <div class="col-md-4">
+              <div class="panel panel-default" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px;">
+                <div class="panel-heading" style="background-color: #cfe6d5; padding: 10px; border-bottom: 1px solid #ccc;">
+                  <h4>Filters</h4>
+                </div>
+                <div class="panel-body">
+                  <div style="margin-top: 20px;">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <label><strong>Filter by status:</strong></label>
+                        <div>
+                          <input class="cb" type="checkbox" id="not-started-filter"/> <label class="lb" for="not-started-filter">Not started</label>
+                        </div>
+                        <div>
+                          <input class="cb" type="checkbox" id="in-progress-filter"/> <label class="lb" for="in-progress-filter">In progress</label>
+                        </div>
+                        <div>
+                          <input class="cb" type="checkbox" id="completed-filter"/> <label class="lb" for="completed-filter">Completed</label>
+                        </div>
+                      </div>
+                      <div>
+                        <label><strong>Filter by due date:</strong></label>
+                        <div>
+                          <input class="cb" type="checkbox" id="overdue-filter" /> <label class="lb" for="overdue-filter">Overdue</label>
+                        </div>
+                        <div>
+                          <input class="cb" type="checkbox" id="due-today-filter" /> <label class="lb" for="due-today-filter">Due today</label>
+                        </div>
+                        <div>
+                          <input class="cb" type="checkbox" id="upcoming-filter" /> <label class="lb" for="upcoming-filter">Upcoming</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+  const logoutLink = document.getElementById('logout-link');
+  const logoutForm = document.getElementById('logout-form');
+  const examList = document.getElementById('mytable');
+  const exams = Array.from(examList.children);
+  const searchInput = document.getElementById('search-input');
+
+  logoutLink.addEventListener('click', function() {
+    logoutForm.submit();
+  });
+
+  searchInput.addEventListener('input', function() {
+    const value = searchInput.value.toLowerCase();
+    searchexams(value, exams);
+  });
+
+  function searchexams(value, data) {
+    data.forEach(exam => {
+      if (exam.tagName === 'TR') {
+        const titleElement = exam.querySelector('td:first-child');
+        const title = titleElement?.textContent.toLowerCase();
+        if (title && title.includes(value)) {
+          exam.style.display = '';
+        } else {
+          exam.style.display = 'none';
+        }
+      }
+    });
+  }
+});
+
+
+// Add event listeners to table headers
+const headers = document.querySelectorAll('#myTable thead th');
+headers.forEach(header => {
+  header.addEventListener('click', () => {
+    const column = header.getAttribute('data-column');
+    const order = header.getAttribute('data-order') === 'asc' ? 'desc' : 'asc';
+    header.setAttribute('data-order', order);
+    header.querySelector('span').classList.toggle('asc');
+    header.querySelector('span').classList.toggle('desc');
+    sortexams(column, order);
+  });
+});
+
+// Map column names to numeric positions
+const columnMap = {
+  title: 1,
+  due_date: 2,
+  status: 3,
+  action: 4
+};
+
+function sortexams(column, order) {
+  const exams = Array.from(document.querySelectorAll('#mytable tr'));
+  exams.sort((a, b) => {
+    let aValue, bValue;
+    if (column === 'due_date') {
+      const dueDateFormat = "MMM D, YYYY h:mm A";
+      const aDate = a.querySelector(`td:nth-child(${columnMap[column]})`).textContent;
+      const bDate = b.querySelector(`td:nth-child(${columnMap[column]})`).textContent;
+      aValue = moment(aDate, dueDateFormat).toISOString();
+      bValue = moment(bDate, dueDateFormat).toISOString();
+      if (!aValue) aValue = '';
+      if (!bValue) bValue = '';
+    } else {
+      aValue = a.querySelector(`td:nth-child(${columnMap[column]})`).textContent;
+      bValue = b.querySelector(`td:nth-child(${columnMap[column]})`).textContent;
+    }
+    if (order === 'asc') {
+      return aValue.localeCompare(bValue);
+    } else {
+      return bValue.localeCompare(aValue);
+    }
+  });
+  exams.forEach(exam => {
+    document.querySelector('#mytable').appendChild(exam);
+  });
+}
+
+document.querySelectorAll('.exam-row td:nth-child(1), .exam-row td:nth-child(2)').forEach(column => {
+  column.addEventListener('click', () => {
+    const row = column.parentNode;
+    const modalId = row.getAttribute('data-modal-id');
+    const modal = document.getElementById(modalId);
+    const modalToggle = new bootstrap.Modal(modal, {
+      keyboard: false
+    });
+    modalToggle.show();
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const selectElements = document.querySelectorAll('.dp');
+  selectElements.forEach(function(selectElement) {
+    changeBackgroundColor(selectElement);
+  });
+});
+
+function changeBackgroundColor(selectElement) {
+  const selectedValue = selectElement.value;
+  const backgroundColor = selectedValue === 'Not started' ? '#fc6262' : selectedValue === 'In progress' ? '#fcec83' : '#95fc83';
+  selectElement.style.backgroundColor = backgroundColor;
+}
+
+const statusSelects = document.querySelectorAll('.dp');
+
+function saveSelectValue(select) {
+  const examId = select.closest('tr').getAttribute('data-modal-id').split('-')[1];
+  localStorage.setItem(`exam-${examId}-status`, select.value);
+}
+
+function loadSelectValue(select) {
+  const examId = select.closest('tr').getAttribute('data-modal-id').split('-')[1];
+  const storedValue = localStorage.getItem(`exam-${examId}-status`);
+  if (storedValue) {
+    select.value = storedValue;
+  }
+}
+
+
+statusSelects.forEach((select) => {
+  select.addEventListener('change', () => saveSelectValue(select));
+  loadSelectValue(select);
+});
+
+// Get the filter checkboxes
+const notStartedFilter = document.getElementById('not-started-filter');
+const inProgressFilter = document.getElementById('in-progress-filter');
+const completedFilter = document.getElementById('completed-filter');
+const overDueFilter = document.getElementById('overdue-filter');
+const dueTodayFilter = document.getElementById('due-today-filter');
+const upcomingFilter = document.getElementById('upcoming-filter');
+
+// Add event listeners to the checkboxes
+notStartedFilter.addEventListener('change', filterexams);
+inProgressFilter.addEventListener('change', filterexams);
+completedFilter.addEventListener('change', filterexams);
+overDueFilter.addEventListener('change', filterexams);
+dueTodayFilter.addEventListener('change', filterexams);
+upcomingFilter.addEventListener('change', filterexams);
+
+function filterexams() {
+  const exams = Array.from(document.getElementById('mytable').children);
+  exams.forEach(exam => {
+    const status = exam.querySelector('select').value;
+    const dueDate = exam.querySelector('td:nth-child(2)').textContent;
+    const dueDateFormat = "MMM D, YYYY h:mm A";
+    const parsedDueDate = moment(dueDate, dueDateFormat).toDate();
+    const today = new Date();
+    const isoverDue = parsedDueDate < today;
+    const isDueToday = moment(parsedDueDate).isSame(today, 'day');
+    const isUpcoming = parsedDueDate > today;
+
+
+    if ((notStartedFilter.checked && status !== 'Not started') ||
+        (inProgressFilter.checked && status !== 'In progress') ||
+        (completedFilter.checked && status !== 'Completed')) {
+      exam.style.display = 'none';
+    } else {
+
+      if ((overDueFilter.checked && !isoverDue) ||
+          (dueTodayFilter.checked && !isDueToday) ||
+          (upcomingFilter.checked && !isUpcoming)) {
+        exam.style.display = 'none';
+      } else {
+        exam.style.display = '';
+      }
+    }
+  });
+}
+          </script>
+    </body>
+</html>

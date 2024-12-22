@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+        <title>Settings</title>
+        <style>
+                    body {
+        background-color: #dae8e2;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #dae8e2;
+        text-align: center;
+        padding: 10px 0;
+        z-index: 999;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .nav-menu li {
+        display: inline-block;
+        margin-right: 20px;
+        padding: 10px  15px;
+    }
+    .nav-menu li:not(.logout):hover{
+        background-color: #ceded7;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    .nav-menu a {
+        color: black;
+        text-decoration: none;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .logout {
+        position: absolute;
+        right: 0;
+        background-color: #f56478;
+        border-radius: 5px;
+        font-family: arial;
+        cursor: pointer;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        nav ul {
+        flex-direction: column;
+        align-items: center;
+        }
+        .logout {
+        position: relative;
+        right: auto;
+        }
+    }
+    .logout:hover {
+        background-color: #e35f71;
+    }
+
+    .home-button {
+        position: absolute;
+        left: 0;
+        margin-top: 8px;
+        margin-left: 20px;
+    }
+    #tedu {
+        display: inline;
+        margin-left: 5px;
+        position: relative;
+        top: 3px;
+        font-size: 19px;
+    }
+        </style>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const logoutLink = document.getElementById('logout-link');
+                const logoutForm = document.getElementById('logout-form');
+
+                logoutLink.addEventListener('click', function() {
+                    logoutForm.submit();
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <nav class="nav-menu">
+            <a href="{% url 'home' %}">
+                <div class="home-button">
+                    <i class="fa-solid fa-calendar-check fa-2xl"></i><h3 id="tedu"><strong>Todue</strong></h3>
+                </div>
+            </a>
+            <ul>
+                <a href="{% url 'dashboard' %}"><li>Dashboard</li></a>
+                <a href="{% url 'assignment_list' %}"><li>Assignments</li></a>
+                <a href="{% url 'exam_list' %}"><li>Exams</li></a>
+                <a href="{% url 'calendar' %}"><li>Calendar</li></a>
+                <a href="{% url 'settings' %}"><li>Settings</li></a>
+                {% if user.is_authenticated %}
+                    <form id="logout-form" action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <li class="logout" id="logout-link">Logout</li>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}"><li class="logout">Login or Signup</li></a>
+                {% endif %}
+            </ul>
+        </nav>
+    </body>
+</html>

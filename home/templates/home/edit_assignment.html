@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+        <title>New assignment</title>
+        <style>
+                body {
+        background-color: #dae8e2;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #dae8e2;
+        text-align: center;
+        padding: 10px 0;
+        z-index: 999;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .nav-menu li {
+        display: inline-block;
+        margin-right: 20px;
+        padding: 10px  15px;
+    }
+    .nav-menu li:not(.logout):hover{
+        background-color: #ceded7;
+        border-radius: 20px;
+    }
+    .nav-menu a {
+        color: black;
+        text-decoration: none;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .logout {
+        position: absolute;
+        right: 0;
+        background-color: #f56478;
+        border-radius: 5px;
+        font-family: arial;
+        cursor: pointer;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        nav ul {
+        flex-direction: column;
+        align-items: center;
+        }
+        .logout {
+        position: relative;
+        right: auto;
+        }
+    }
+    .logout:hover {
+        background-color: #e35f71;
+    }
+
+    .home-button {
+        position: absolute;
+        left: 0;
+        margin-top: 8px;
+        margin-left: 20px;
+    }
+    #tedu {
+        display: inline;
+        margin-left: 5px;
+        position: relative;
+        top: 3px;
+        font-size: 19px;
+    }
+
+    h1 {
+      padding-top: 100px;
+      text-align: center;
+    }
+
+    .custom-font {
+      font-family: 'Arial', sans-serif;
+      font-size: 17px;
+    }
+
+    .form-horizontal {
+      width:  25%; /* adjust the width as needed */
+      margin: 0 auto; /* center the form */
+    }
+        </style>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const logoutLink = document.getElementById('logout-link');
+                const logoutForm = document.getElementById('logout-form');
+
+                logoutLink.addEventListener('click', function() {
+                    logoutForm.submit();
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <nav class="nav-menu">
+            <a href="{% url 'home' %}">
+                <div class="home-button">
+                    <i class="fa-solid fa-calendar-check fa-2xl"></i><h3 id="tedu"><strong>Todue</strong></h3>
+                </div>
+            </a>
+            <ul>
+                <a href="{% url 'dashboard' %}"><li>Dashboard</li></a>
+                <a href="{% url 'assignment_list' %}"><li>Assignments</li></a>
+                <a href="{% url 'exam_list' %}"><li>Exams</li></a>
+                <a href="{% url 'calendar' %}"><li>Calendar</li></a>
+                <a href="{% url 'settings' %}"><li>Settings</li></a>
+                {% if user.is_authenticated %}
+                    <form id="logout-form" action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <li class="logout" id="logout-link">Logout</li>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}"><li class="logout">Login or Signup</li></a>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="container">
+          <h1 class="mb-4">Edit Assignment</h1>
+          <div style="border-top: 3px solid #ccc; margin: 20px 10%; width: 80%; border-color: black;"> </div>
+          <form method="post" class="row g-3">
+            {% csrf_token %}
+            <div class="col-md-6">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" id="title" class="form-control" name="title" placeholder="Add title" value="{{ assignment.title }}">
+            </div>
+            <div class="col-md-6">
+              <label for="due_date" class="form-label">Due Date</label>
+              <input type="date" id="due_date" class="form-control" name="due_date" value="{{ assignment.due_date|date:'Y-m-d' }}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="due_time" class="form-label">Due Time</label>
+                <input type="time" id="due_time" class="form-control" name="due_time" value="{{ assignment.due_time|time:'H:i' }}" required>
+            </div>
+            <div class="col-md-12">
+              <label for="description" class="form-label">Description</label>
+              <textarea id="description" class="form-control" name="description" rows="3" placeholder="Add description">{{ assignment.description }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Save changes</button>
+            <button type="button" class="btn btn-danger btn-lg" onclick="window.location.href='{% url 'assignment_list' %}'">Cancel</button>
+          </form>
+        </div>
+    </body>
+</html>
