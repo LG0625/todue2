@@ -326,7 +326,7 @@
         <nav class="nav-menu">
             <a href="{% url 'home' %}">
                 <div class="home-button">
-                    <i class="fa-solid fa-calendar-check fa-2xl"></i><h3 id="tedu"><strong>Todue</strong></h3>
+                    <i class="fa-solid fa-calendar-check fa-2xl"></i><h3 id="tedu"><strong>ToDue</strong></h3>
                 </div>
             </a>
             <ul>
@@ -350,9 +350,13 @@
           <div style="border-top: 3px solid #ccc; margin: 20px 10%; width: 80%; border-color: black; padding-bottom: 36px;"> </div>
           <div class="row">
             <div class="col-md-8" id="exam-list-container">
-              <div class="card" style="margin-bottom: 15px; width: 300px;">
-                <input id="search-input" class="form-control" type="text" placeholder="Search">
-            </div>
+              {% if user.is_authenticated %}
+                <div class="card" style="margin-bottom: 15px; width: 300px;">
+                  <input id="search-input" class="form-control" type="text" placeholder="Search">
+                </div>
+              {% else %}
+                <div style="margin-bottom: 54px;"></div>
+              {% endif %}
             <div style="float: right; margin-top: -52px;">
                     <a href="{% url 'create_exam' %}" title="New exam" style="color: white; text-decoration: none; outline: none">
                       <button class="btn new-exam-button btn-primary" title="New Exam">New Exam</button>

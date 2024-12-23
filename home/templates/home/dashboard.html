@@ -105,7 +105,7 @@
         <nav class="nav-menu">
             <a href="{% url 'home' %}">
                 <div class="home-button">
-                    <i class="fa-solid fa-calendar-check fa-2xl"></i><h3 id="tedu"><strong>Todue</strong></h3>
+                    <i class="fa-solid fa-calendar-check fa-2xl"></i><h3 id="tedu"><strong>ToDue</strong></h3>
                 </div>
             </a>
             <ul>
@@ -124,7 +124,14 @@
                 {% endif %}
             </ul>
         </nav>
-        <h1 style='margin-top: 70px'>Hello, {{user.username}}</h1>
-        
+        {% if user.is_authenticated %}
+            <h1 style='margin-top: 70px'>Hello, {{user.username}}</h1>
+            <h2>You have <strong>{{ assignment_count }}</strong> assignment{% if assignment_count != 1 %}s{% endif %} and <strong>{{ exam_count }}</strong> exam{% if exam_count != 1 %}s{% endif %} coming up.</h2>
+        {% else %}
+        <h1 style="font-size:40px; text-align:center; margin-top: 300px">
+            Welcome to Todue — Keep Your Assignments Organized and On Track!
+        </h1>
+        <h2 style="font-size:30px; text-align:center;"><a href="{% url 'signup' %}">Sign Up</a> or <a href="{% url 'login' %}">Log In</a> to Get Started</h2>
+        {% endif %}
     </body>
 </html>
