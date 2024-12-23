@@ -407,6 +407,11 @@
                           <span class="due-date">Due Date: {{ assignment.due_date|date:"M. d, Y" }} At {{ assignment.due_time|time:"g:i A" }}</span>
                         </div>
                         <div class="modal-footer">
+                          <a href="{% url 'add_to_google_calendar' event_type='assignment' event_id=assignment.pk %}"
+                          target="_blank"
+                          class="btn" style="background: #83a8f7">
+                          Add to Google Calendar
+                       </a>
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                       </div>

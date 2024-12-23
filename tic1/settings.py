@@ -126,3 +126,6 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+GOOGLE_CAL_CLIENT_ID = '838653658442-beduhl41n0du9t5ebfdh0stp72gf0qbg.apps.googleusercontent.com'
+GOOGLE_CAL_REDIRECT_URI = 'https://127.0.0.1:8000/oauth/callback'
