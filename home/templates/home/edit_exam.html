@@ -103,6 +103,53 @@
       width:  25%; /* adjust the width as needed */
       margin: 0 auto; /* center the form */
     }
+
+    .menu-toggle {
+        display: none; /* Hidden by default */
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: black;
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        z-index: 1000;
+    }
+    
+    /* Mobile Navigation */
+    @media (max-width: 768px) {
+        .menu-toggle {
+            display: block; /* Show on mobile screens */
+        }
+    
+        .nav-menu ul {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            background-color: #dae8e2;
+            position: absolute;  /* Keeps it out of the flow but positioned correctly when shown */
+            top: 60px; /* Below the nav bar */
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: -1; /* Hide behind other elements */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+    
+        /* When the menu is shown */
+        .nav-menu ul.show {
+            display: flex; /* Display as flex when toggled */
+            z-index: 999; /* Bring to the front */
+        }
+    
+        .nav-menu li {
+            margin: 10px 0;
+        }
+    
+        .logout {
+            position: relative;
+        }
+    } 
         </style>
 
         <script>
@@ -114,6 +161,14 @@
                     logoutForm.submit();
                 });
             });
+            document.addEventListener('DOMContentLoaded', function () {
+                const toggleButton = document.getElementById('menu-toggle');
+                const navLinks = document.getElementById('nav-links');
+              
+                toggleButton.addEventListener('click', function () {
+                    navLinks.classList.toggle('show');
+                });
+              });
         </script>
     </head>
     <body>
@@ -123,7 +178,7 @@
                     <i class="fa-solid fa-calendar-check fa-2xl"></i><h3 id="tedu"><strong>ToDue</strong></h3>
                 </div>
             </a>
-            <ul>
+            <ul id="nav-links">
                 <a href="{% url 'dashboard' %}"><li>Dashboard</li></a>
                 <a href="{% url 'assignment_list' %}"><li>Assignments</li></a>
                 <a href="{% url 'exam_list' %}"><li>Exams</li></a>
@@ -138,6 +193,9 @@
                     <a href="{% url 'login' %}"><li class="logout">Login or Signup</li></a>
                 {% endif %}
             </ul>
+            <button class="menu-toggle" id="menu-toggle">
+              <i class="fa-solid fa-bars"></i>
+          </button>
         </nav>
         <div class="container">
           <h1 class="mb-4">Edit Exam</h1>
