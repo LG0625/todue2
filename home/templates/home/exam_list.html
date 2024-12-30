@@ -361,6 +361,9 @@
       height: 35px; /* Set a fixed height */
   }
 
+  #search-mobile {
+    width: 200px;
+  }
   .menu-toggle:hover {
 background-color: #88b3a0;
 }
@@ -425,7 +428,7 @@ box-shadow: none;
           <div class="row">
             <div class="col-md-8" id="exam-list-container">
               {% if user.is_authenticated %}
-                <div class="card" style="margin-bottom: 15px; width: 300px;">
+                <div class="card" style="margin-bottom: 15px; width: 300px;" id="search-mobile">
                   <input id="search-input" class="form-control" type="text" placeholder="Search">
                 </div>
               {% else %}

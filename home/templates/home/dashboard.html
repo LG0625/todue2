@@ -129,7 +129,7 @@
             width: 35px; /* Set a fixed width */
             height: 35px; /* Set a fixed height */
         }
-    
+
         .menu-toggle:hover {
       background-color: #88b3a0;
     }
@@ -240,6 +240,18 @@
     #ex {
         margin-right: 200px;
     }
+
+    @media (max-width: 768px) {
+        .stats-container {
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .stats-box {
+            width: 30%; 
+            margin-bottom: 20px; 
+        }
+    }
         </style>
 
         <script>
@@ -290,7 +302,7 @@
         {% if user.is_authenticated %}
         <!-- Stats Section for Assignments and Exams -->
         <div class="stats-container">
-            <div class="stats-box" id="as">
+            <div class="stats-box" id="as" >
                 <h2>Assignments</h2>
                 <p style="font-size: 20px;">{{ assignments_count }} Pending</p>
             </div>

@@ -354,7 +354,7 @@
           width: 35px; /* Set a fixed width */
           height: 35px; /* Set a fixed height */
       }
-  
+
       .menu-toggle:hover {
     background-color: #88b3a0;
   }
@@ -384,7 +384,15 @@
       .nav-menu li {
           margin: 10px 0; /* Space between menu items */
       }
+
+      @media (max-width: 768px) {
+        #new-as {
+          margin-top: 70px;
+          margin-bottom: 40px;
+        }
+    }
   }  
+
       </style>
     </head>
     <body>
@@ -427,7 +435,7 @@
               {% endif %}
             <div style="float: right; margin-top: -52px;">
                     <a href="{% url 'create_assignment' %}" title="New Assignment" style="color: white; text-decoration: none; outline: none">
-                      <button class="btn new-assignment-button btn-primary" title="New assignment">New assignment</button>
+                      <button class="btn new-assignment-button btn-primary" title="New assignment" id="new-as">New assignment</button>
                     </a>
             </div>
               <table id="myTable" class="table table-striped table-bordered">
