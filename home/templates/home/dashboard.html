@@ -160,6 +160,86 @@
             margin: 10px 0; /* Space between menu items */
         }
     }  
+
+
+    /* New styles for the dashboard */
+    .dashboard-container {
+        margin-top: 60px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .dashboard-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .dashboard-header h1 {
+        color: #89b099;
+    }
+
+    .stats-container {
+        display: flex;
+        margin-bottom: 30px;
+        margin-top: 200px;
+    }
+
+    .stats-box {
+        background-color: #89b099;
+        padding: 20px;
+        border-radius: 8px;
+        width: 30%;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .stats-box h3 {
+        margin: 10px 0;
+        color:rgb(0, 0, 0);
+    }
+    .additional-containers {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+    .additional-box {
+        background-color: #89b099;
+        padding: 20px;
+        border-radius: 8px;
+        width: 30%;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .login-prompt {
+        background-color: #f4f4f4;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin-top: 30px;
+    }
+    .login-prompt h3 {
+        color: #e35f71;
+    }
+    .login-prompt a {
+        color: #89b099;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    #as {
+        margin-right: 100px;
+        margin-left: 200px;
+    }
+
+    #ex {
+        margin-right: 200px;
+    }
         </style>
 
         <script>
@@ -208,13 +288,38 @@
           </button>
         </nav>
         {% if user.is_authenticated %}
-            <h1 style='margin-top: 70px'>Hello, {{user.username}}</h1>
-            <h2>You have <strong>{{ assignment_count }}</strong> assignment{% if assignment_count != 1 %}s{% endif %} and <strong>{{ exam_count }}</strong> exam{% if exam_count != 1 %}s{% endif %} coming up.</h2>
-        {% else %}
-        <h1 style="font-size:40px; text-align:center; margin-top: 300px">
-            Welcome to Todue — Keep Your Assignments Organized and On Track!
-        </h1>
-        <h2 style="font-size:30px; text-align:center;"><a href="{% url 'signup' %}">Sign Up</a> or <a href="{% url 'login' %}">Log In</a> to Get Started</h2>
-        {% endif %}
+        <!-- Stats Section for Assignments and Exams -->
+        <div class="stats-container">
+            <div class="stats-box" id="as">
+                <h2>Assignments</h2>
+                <p style="font-size: 20px;">{{ assignments_count }} Pending</p>
+            </div>
+            <div class="stats-box" id="ex">
+                <h2>Exams</h2>
+                <p style="font-size: 20px;">{{ exams_count }} Upcoming</p>
+            </div>
+        </div>
+
+<!--<div class="additional-containers">
+    <div class="additional-box in-progress-container">
+        <h3>Not Started</h3>
+        <p class="card-text" id="not-started-count">{{ not_started_count }}</p>
+    </div>
+    <div class="additional-box not-started-container">
+        <h3>In Progress</h3>
+        <p class="card-text" id="in-progress-count">{{ in_progress_count }}</p>
+    </div>
+    <div class="additional-box in-progress-container">
+        <h3>Completed</h3>
+        <p class="card-text" id="completed-count">{{ completed_count }}</p>
+    </div>
+</div>-->
+            {% else %}
+                <h1 style="font-size:40px; text-align:center; margin-top: 300px">
+                Welcome to Todue — Keep Your Assignments Organized and On Track!
+                </h1>
+                <h2 style="font-size:30px; text-align:center;"><a href="{% url 'signup' %}">Sign Up</a> or <a href="{% url 'login' %}">Log In</a> to Get Started</h2>
+            {% endif %}
+        </div>
     </body>
 </html>

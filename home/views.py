@@ -3,7 +3,7 @@ from .models import Assignment, Exam
 from .forms import AssignmentForm, ExamForm
 from django.conf import settings
 from urllib.parse import urlencode
-from django.db.models import Q
+from django.utils import timezone
 
 
 
@@ -114,19 +114,27 @@ def delete_exam(request, pk):
         exam.delete()
     return redirect('exam_list')
 
-
 def dashboard(request):
-    assignment_count = 0
-    exam_count = 0
-
+    # Check if the user is authenticated
     if request.user.is_authenticated:
-        assignment_count = Assignment.objects.filter(user=request.user).count()
-        exam_count = Exam.objects.filter(user=request.user).count()
-
-    return render(request, "home/dashboard.html", {
-        'assignment_count': assignment_count,
-        'exam_count': exam_count
-    })
+        # If authenticated, fetch assignments and exams count
+        user = request.user
+        assignments_count = Assignment.objects.filter(user=user, due_date__gte=timezone.now().date()).count()
+        exams_count = Exam.objects.filter(user=user, exam_date__gte=timezone.now().date()).count()
+        context = {
+            'assignments_count': assignments_count,
+            'exams_count': exams_count,
+            'is_authenticated': True,
+        }
+    else:
+        # If not authenticated, pass flag and empty counts
+        context = {
+            'assignments_count': 0,
+            'exams_count': 0,
+            'is_authenticated': False,
+        }
+    
+    return render(request, "home/dashboard.html", context)
 
 
 
