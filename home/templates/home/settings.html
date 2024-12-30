@@ -6,160 +6,266 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
         <title>Settings</title>
         <style>
-                    body {
-        background-color: #dae8e2;
-    }
+            body {
+                background-color: #dae8e2;
+                font-family: 'Arial', sans-serif;
+                margin: 0;
+                padding: 0;
+            }
 
-    .nav-menu {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background-color: #dae8e2;
-        text-align: center;
-        padding: 10px 0;
-        z-index: 999;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background-color: #dae8e2;
+                text-align: center;
+                padding: 10px 0;
+                z-index: 999;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
 
-    .nav-menu ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-    .nav-menu li {
-        display: inline-block;
-        margin-right: 20px;
-        padding: 10px  15px;
-    }
-    .nav-menu li:not(.logout):hover{
-        background-color: #ceded7;
-        border-radius: 20px;
-        cursor: pointer;
-    }
-    .nav-menu a {
-        color: black;
-        text-decoration: none;
-        font-family: 'Open Sans', sans-serif;
-    }
+            .nav-menu ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
 
-    nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-    }
+            .nav-menu li {
+                display: inline-block;
+                margin-right: 20px;
+                padding: 10px  15px;
+            }
 
-    .logout {
-        position: absolute;
-        right: 0;
-        background-color: #f56478;
-        border-radius: 5px;
-        font-family: arial;
-        cursor: pointer;
-    }
+            .nav-menu li:not(.logout):hover {
+                background-color: #ceded7;
+                border-radius: 20px;
+                cursor: pointer;
+            }
 
-    /* Responsive design */
-    @media (max-width: 768px) {
-        nav ul {
-        flex-direction: column;
-        align-items: center;
-        }
-        .logout {
-        position: relative;
-        right: auto;
-        }
-    }
-    .logout:hover {
-        background-color: #e35f71;
-    }
+            .nav-menu a {
+                color: black;
+                text-decoration: none;
+                font-family: 'Open Sans', sans-serif;
+            }
 
-    .home-button {
-        position: absolute;
-        left: 0;
-        margin-top: 8px;
-        margin-left: 20px;
-    }
-    #tedu {
-        display: inline;
-        margin-left: 5px;
-        position: relative;
-        top: 3px;
-        font-size: 19px;
-    }
+            nav ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+            }
 
-    .menu-toggle {
-        display: none; /* Hidden by default on large screens */
-    }
-    
-    .nav-menu ul {
-        display: flex; /* Always visible on large screens */
-        flex-direction: row;
-        justify-content: center;
-        background-color: transparent; /* Matches your design */
-        position: relative;
-        z-index: auto;
-    }
-    
-  
-    @media (max-width: 768px) {
-        .menu-toggle {
-            display: block; /* Show the toggle button on smaller screens */
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            font-size: 1.8rem;
-            color: #000000;
-            background: #000000;
-            border: none;
-            cursor: pointer;
-            z-index: 1001; /* Ensure it's above other elements */
-            background-color: #9fcfba;
-            color: white; /* White color for the icon */
-            border: none; /* Remove default border */
-            border-radius: 5px; /* Make the button circular */
-            padding: 12px 16px; /* Add padding for size */
-            font-size: 24px; /* Increase icon size */
-            cursor: pointer; /* Pointer cursor on hover */
-            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 35px; /* Set a fixed width */
-            height: 35px; /* Set a fixed height */
-        }
-    
-        .menu-toggle:hover {
-      background-color: #88b3a0;
-    }
-    /* Default state for mobile screens */
-    .nav-menu ul {
-        display: none; /* Initially hidden on small screens */
-        flex-direction: column;
-        align-items: center;
-        background-color: #dae8e2;
-        position: absolute;
-        top: 60px; /* Adjust to your navbar height */
-        left: 0;
-        width: 100%;
-        z-index: 1000;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
-    
-    .nav-menu {
-      background-color: none;
-      box-shadow: none;
-    }
-        /* When toggled */
-        .nav-menu ul.show {
-            display: flex; /* Show the menu when the toggle button is clicked */
-        }
-    
-        .nav-menu li {
-            margin: 10px 0; /* Space between menu items */
-        }
-    }  
+            .logout {
+                position: absolute;
+                right: 0;
+                background-color: #f56478;
+                border-radius: 5px;
+                font-family: arial;
+                cursor: pointer;
+            }
+
+            /* Responsive design */
+            @media (max-width: 768px) {
+                nav ul {
+                    flex-direction: column;
+                    align-items: center;
+                }
+                .logout {
+                    position: relative;
+                    right: auto;
+                }
+            }
+
+            .logout:hover {
+                background-color: #e35f71;
+            }
+
+            .home-button {
+                position: absolute;
+                left: 0;
+                margin-top: 8px;
+                margin-left: 20px;
+            }
+
+            #tedu {
+                display: inline;
+                margin-left: 5px;
+                position: relative;
+                top: 3px;
+                font-size: 19px;
+            }
+
+            .menu-toggle {
+                display: none; /* Hidden by default on large screens */
+            }
+
+            .nav-menu ul {
+                display: flex; /* Always visible on large screens */
+                flex-direction: row;
+                justify-content: center;
+                background-color: transparent; /* Matches your design */
+                position: relative;
+                z-index: auto;
+            }
+
+            @media (max-width: 768px) {
+                .menu-toggle {
+                    display: block; /* Show the toggle button on smaller screens */
+                    position: absolute;
+                    right: 20px;
+                    top: 15px;
+                    font-size: 1.8rem;
+                    color: #000000;
+                    background: #000000;
+                    border: none;
+                    cursor: pointer;
+                    z-index: 1001; /* Ensure it's above other elements */
+                    background-color: #9fcfba;
+                    color: white; /* White color for the icon */
+                    border: none; /* Remove default border */
+                    border-radius: 5px; /* Make the button circular */
+                    padding: 12px 16px; /* Add padding for size */
+                    font-size: 24px; /* Increase icon size */
+                    cursor: pointer; /* Pointer cursor on hover */
+                    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 35px; /* Set a fixed width */
+                    height: 35px; /* Set a fixed height */
+                }
+
+                .menu-toggle:hover {
+                    background-color: #88b3a0;
+                }
+
+                /* Default state for mobile screens */
+                .nav-menu ul {
+                    display: none; /* Initially hidden on small screens */
+                    flex-direction: column;
+                    align-items: center;
+                    background-color: #dae8e2;
+                    position: absolute;
+                    top: 60px; /* Adjust to your navbar height */
+                    left: 0;
+                    width: 100%;
+                    z-index: 1000;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                }
+                
+                /* When toggled */
+                .nav-menu ul.show {
+                    display: flex; /* Show the menu when the toggle button is clicked */
+                }
+                
+                .nav-menu li {
+                    margin: 10px 0; /* Space between menu items */
+                }
+            }
+
+            .container {
+                margin-top: 80px; /* Space to avoid navbar overlap */
+                padding: 20px;
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+                background-color: #9fcfba;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            h2 {
+                text-align: center;
+                color: #333;
+                font-size: 28px;
+            }
+
+            .section {
+                background-color:rgb(199, 223, 230);
+                padding: 20px;
+                margin-bottom: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            .section h3 {
+                margin-top: 0;
+                color: #333;
+            }
+
+            .section p {
+                font-size: 16px;
+                color: #555;
+            }
+
+            .toggle-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .toggle-btn {
+                position: relative;
+                display: inline-block;
+                width: 60px;
+                height: 30px;
+            }
+
+            .toggle-btn input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+            .toggle-btn .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                transition: 0.4s;
+                border-radius: 30px;
+            }
+
+            .toggle-btn .slider:before {
+                position: absolute;
+                content: "";
+                height: 22px;
+                width: 22px;
+                border-radius: 50%;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                transition: 0.4s;
+            }
+
+            input:checked + .slider {
+                background-color: #4caf50;
+            }
+
+            input:checked + .slider:before {
+                transform: translateX(30px);
+            }
+
+            .danger-btn {
+                padding: 10px 20px;
+                background-color: #f44336;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                width: 100%;
+                text-align: center;
+            }
+
+            .danger-btn:hover {
+                background-color: #e53935;
+            }
         </style>
 
         <script>
@@ -171,7 +277,6 @@
                     logoutForm.submit();
                 });
             });
-
             document.addEventListener('DOMContentLoaded', function () {
                 const toggleButton = document.getElementById('menu-toggle');
                 const navLinks = document.getElementById('nav-links');
@@ -179,7 +284,7 @@
                 toggleButton.addEventListener('click', function () {
                     navLinks.classList.toggle('show');
                 });
-              });
+            });
         </script>
     </head>
     <body>
@@ -194,7 +299,7 @@
                 <a href="{% url 'assignment_list' %}"><li>Assignments</li></a>
                 <a href="{% url 'exam_list' %}"><li>Exams</li></a>
                 <a href="{% url 'calendar' %}"><li>Calendar</li></a>
-                <a href="{% url 'settings' %}"><li>Settings</li></a>
+                <a href="{% url 'settingss' %}"><li>Settings</li></a>
                 {% if user.is_authenticated %}
                     <form id="logout-form" action="{% url 'logout' %}" method="post">
                         {% csrf_token %}
@@ -208,5 +313,59 @@
               <i class="fa-solid fa-bars"></i>
           </button>
         </nav>
+
+        <div class="container">
+            <h2>Settings</h2>
+
+            <!-- User Details Section -->
+            <div class="section">
+                <h3>User Details</h3>
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+            </div>
+
+            <!-- Notifications Section -->
+            <div class="section">
+                <h3>Notifications</h3>
+                <div class="toggle-container">
+                    <label class="toggle-btn">
+                        <input type="checkbox" id="notifications-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Delete Account Section -->
+            <div class="section">
+                <h3>Delete Account</h3>
+                <form action="{% url 'delete_account' %}" method="POST" onsubmit="return confirm('Are you sure you want to delete your account?')">
+                    {% csrf_token %}
+                    <button style="width: 140px; font-size: 14px;"type="submit" class="danger-btn">Delete Account</button>
+                </form>
+            </div>
+        </div>
+        <!--<div class="container">
+            <h2>Feedback</h2>
+            <p>If you have any suggestions or feedback about our site, please share them with us below!</p>
+    
+            
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="feedback_text">Your Feedback:</label>
+                    {{ form.as_p }}
+                </div>
+                <button type="submit">Submit Feedback</button>
+            </form>
+
+
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>-->
     </body>
 </html>

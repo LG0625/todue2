@@ -208,7 +208,7 @@
                 <a href="{% url 'assignment_list' %}"><li>Assignments</li></a>
                 <a href="{% url 'exam_list' %}"><li>Exams</li></a>
                 <a href="{% url 'calendar' %}"><li>Calendar</li></a>
-                <a href="{% url 'settings' %}"><li>Settings</li></a>
+                <a href="{% url 'settingss' %}"><li>Settings</li></a>
                 {% if user.is_authenticated %}
                     <form id="logout-form" action="{% url 'logout' %}" method="post">
                         {% csrf_token %}

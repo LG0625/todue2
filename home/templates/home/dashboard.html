@@ -273,7 +273,7 @@
                 <a href="{% url 'assignment_list' %}"><li>Assignments</li></a>
                 <a href="{% url 'exam_list' %}"><li>Exams</li></a>
                 <a href="{% url 'calendar' %}"><li>Calendar</li></a>
-                <a href="{% url 'settings' %}"><li>Settings</li></a>
+                <a href="{% url 'settingss' %}"><li>Settings</li></a>
                 {% if user.is_authenticated %}
                     <form id="logout-form" action="{% url 'logout' %}" method="post">
                         {% csrf_token %}
@@ -300,20 +300,20 @@
             </div>
         </div>
 
-<!--<div class="additional-containers">
-    <div class="additional-box in-progress-container">
-        <h3>Not Started</h3>
-        <p class="card-text" id="not-started-count">{{ not_started_count }}</p>
-    </div>
-    <div class="additional-box not-started-container">
-        <h3>In Progress</h3>
-        <p class="card-text" id="in-progress-count">{{ in_progress_count }}</p>
-    </div>
-    <div class="additional-box in-progress-container">
-        <h3>Completed</h3>
-        <p class="card-text" id="completed-count">{{ completed_count }}</p>
-    </div>
-</div>-->
+                <!--<div class="additional-containers">
+                    <div class="additional-box in-progress-container">
+                        <h3>Not Started</h3>
+                        <p class="card-text"></p>
+                    </div>
+                    <div class="additional-box not-started-container">
+                        <h3>In Progress</h3>
+                        <p class="card-text"></p>
+                    </div>
+                    <div class="additional-box in-progress-container">
+                        <h3>Completed</h3>
+                        <p class="card-text"></p>
+                    </div>
+                </div>-->
             {% else %}
                 <h1 style="font-size:40px; text-align:center; margin-top: 300px">
                 Welcome to Todue — Keep Your Assignments Organized and On Track!

@@ -399,7 +399,7 @@
             <a href="{% url 'assignment_list' %}"><li>Assignments</li></a>
             <a href="{% url 'exam_list' %}"><li>Exams</li></a>
             <a href="{% url 'calendar' %}"><li>Calendar</li></a>
-            <a href="{% url 'settings' %}"><li>Settings</li></a>
+            <a href="{% url 'settingss' %}"><li>Settings</li></a>
             {% if user.is_authenticated %}
                 <form id="logout-form" action="{% url 'logout' %}" method="post">
                     {% csrf_token %}
@@ -492,6 +492,9 @@
                   {% endfor %}
                 </tbody>
               </table>
+              {% if assignments|length < 1 %}
+                <p style="text-align: center; margin-top: 57px; font-size: 34px;">You have no assignments pending! YAY!!</p>
+              {% endif %}
             </div>
             <div class="col-md-4">
               <div class="panel panel-default" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px;">

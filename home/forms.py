@@ -10,3 +10,8 @@ class ExamForm(forms.ModelForm):
     class Meta:
         model = Exam
         fields = ('title', 'description', 'exam_date', 'due_time')
+
+'''class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ['feedback_text']'''
