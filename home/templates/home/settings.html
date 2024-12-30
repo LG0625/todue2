@@ -154,7 +154,11 @@
                     z-index: 1000;
                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
                 }
-                
+                  
+                .nav-menu {
+                    background-color: none;
+                    box-shadow: none;
+                }
                 /* When toggled */
                 .nav-menu ul.show {
                     display: flex; /* Show the menu when the toggle button is clicked */
@@ -316,7 +320,7 @@
 
         <div class="container">
             <h2>Settings</h2>
-
+            {% if user.is_authenticated %}
             <!-- User Details Section -->
             <div class="section">
                 <h3>User Details</h3>
@@ -344,6 +348,9 @@
                 </form>
             </div>
         </div>
+        {% else %}
+            <h2 style="font-size:30px; text-align:center;"><a href="{% url 'signup' %}">Sign Up</a> or <a href="{% url 'login' %}">Log In</a> to Get Started</h2>
+        {% endif %}
         <!--<div class="container">
             <h2>Feedback</h2>
             <p>If you have any suggestions or feedback about our site, please share them with us below!</p>
