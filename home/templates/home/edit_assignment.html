@@ -204,11 +204,11 @@
                 </div>
             </a>
             <ul id="nav-links">
-                <a href="{% url 'dashboard' %}"><li>Dashboard</li></a>
-                <a href="{% url 'assignment_list' %}"><li>Assignments</li></a>
-                <a href="{% url 'exam_list' %}"><li>Exams</li></a>
-                <a href="{% url 'calendar' %}"><li>Calendar</li></a>
-                <a href="{% url 'settingss' %}"><li>Settings</li></a>
+                <a href="{% url 'dashboard' %}"><li style="color:rgb(44, 83, 51);">Dashboard</li></a>
+                <a href="{% url 'assignment_list' %}"><li style="color:rgb(44, 83, 51);">Assignments</li></a>
+                <a href="{% url 'exam_list' %}"><li style="color:rgb(44, 83, 51);">Exams</li></a>
+                <a href="{% url 'calendar' %}"><li style="color:rgb(44, 83, 51);">Calendar</li></a>
+                <a href="{% url 'settingss' %}"><li style="color:rgb(44, 83, 51);">Settings</li></a>
                 {% if user.is_authenticated %}
                     <form id="logout-form" action="{% url 'logout' %}" method="post">
                         {% csrf_token %}
@@ -223,24 +223,24 @@
           </button>
         </nav>
         <div class="container">
-          <h1 class="mb-4">Edit Assignment</h1>
-          <div style="border-top: 3px solid #ccc; margin: 20px 10%; width: 80%; border-color: black;"> </div>
+          <h1 style="color:rgb(44, 83, 51);" class="mb-4">Edit Assignment</h1>
+          <div style="border-top: 3px solid #ccc; margin: 20px 10%; width: 80%; border-color: rgb(44, 83, 51);"> </div>
           <form method="post" class="row g-3">
             {% csrf_token %}
             <div class="col-md-6">
-              <label for="title" class="form-label">Title</label>
+              <label style="color:rgb(44, 83, 51);" for="title" class="form-label">Title</label>
               <input type="text" id="title" class="form-control" name="title" placeholder="Add title" value="{{ assignment.title }}">
             </div>
             <div class="col-md-6">
-              <label for="due_date" class="form-label">Due Date</label>
+              <label style="color:rgb(44, 83, 51);" for="due_date" class="form-label">Due Date</label>
               <input type="date" id="due_date" class="form-control" name="due_date" value="{{ assignment.due_date|date:'Y-m-d' }}" required>
             </div>
             <div class="col-md-6">
-                <label for="due_time" class="form-label">Due Time</label>
+                <label style="color:rgb(44, 83, 51);" for="due_time" class="form-label">Due Time</label>
                 <input type="time" id="due_time" class="form-control" name="due_time" value="{{ assignment.due_time|time:'H:i' }}" required>
             </div>
             <div class="col-md-12">
-              <label for="description" class="form-label">Description</label>
+              <label style="color:rgb(44, 83, 51);" for="description" class="form-label">Description</label>
               <textarea id="description" class="form-control" name="description" rows="3" placeholder="Add description">{{ assignment.description }}</textarea>
             </div>
             <button type="submit" class="btn btn-primary btn-lg">Save changes</button>

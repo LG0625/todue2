@@ -189,11 +189,11 @@
                 </div>
             </a>
             <ul id="nav-links">
-                <a href="{% url 'dashboard' %}"><li>Dashboard</li></a>
-                <a href="{% url 'assignment_list' %}"><li>Assignments</li></a>
-                <a href="{% url 'exam_list' %}"><li>Exams</li></a>
-                <a href="{% url 'calendar' %}"><li>Calendar</li></a>
-                <a href="{% url 'settingss' %}"><li>Settings</li></a>
+                <a href="{% url 'dashboard' %}"><li style="color:rgb(44, 83, 51);">Dashboard</li></a>
+                <a href="{% url 'assignment_list' %}"><li style="color:rgb(44, 83, 51);">Assignments</li></a>
+                <a href="{% url 'exam_list' %}"><li style="color:rgb(44, 83, 51);">Exams</li></a>
+                <a href="{% url 'calendar' %}"><li style="color:rgb(44, 83, 51);">Calendar</li></a>
+                <a href="{% url 'settingss' %}"><li style="color:rgb(44, 83, 51);">Settings</li></a>
                 {% if user.is_authenticated %}
                     <form id="logout-form" action="{% url 'logout' %}" method="post">
                         {% csrf_token %}
@@ -207,6 +207,6 @@
               <i class="fa-solid fa-bars"></i>
           </button>
         </nav>
-        <h1 style="font-size: 70px; margin-top: 300px; text-align: center">Coming Soon :)</h1>
+        <h1 style="font-size: 70px; margin-top: 300px; text-align: center;color:rgb(44, 83, 51);">Coming Soon :)</h1>
     </body>
 </html>

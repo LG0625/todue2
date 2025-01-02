@@ -281,11 +281,11 @@
                 </div>
             </a>
             <ul id="nav-links">
-                <a href="{% url 'dashboard' %}"><li>Dashboard</li></a>
-                <a href="{% url 'assignment_list' %}"><li>Assignments</li></a>
-                <a href="{% url 'exam_list' %}"><li>Exams</li></a>
-                <a href="{% url 'calendar' %}"><li>Calendar</li></a>
-                <a href="{% url 'settingss' %}"><li>Settings</li></a>
+                <a href="{% url 'dashboard' %}"><li style="color:rgb(44, 83, 51);">Dashboard</li></a>
+                <a href="{% url 'assignment_list' %}"><li style="color:rgb(44, 83, 51);">Assignments</li></a>
+                <a href="{% url 'exam_list' %}"><li style="color:rgb(44, 83, 51);">Exams</li></a>
+                <a href="{% url 'calendar' %}"><li style="color:rgb(44, 83, 51);">Calendar</li></a>
+                <a href="{% url 'settingss' %}"><li style="color:rgb(44, 83, 51);">Settings</li></a>
                 {% if user.is_authenticated %}
                     <form id="logout-form" action="{% url 'logout' %}" method="post">
                         {% csrf_token %}
@@ -303,12 +303,12 @@
         <!-- Stats Section for Assignments and Exams -->
         <div class="stats-container">
             <div class="stats-box" id="as" >
-                <h2>Assignments</h2>
-                <p style="font-size: 20px;">{{ assignments_count }} Pending</p>
+                <h2 style="color:rgb(44, 83, 51);">Assignments</h2>
+                <p style="font-size: 20px; color:rgb(44, 83, 51);">{{ assignments_count }} Pending</p>
             </div>
             <div class="stats-box" id="ex">
-                <h2>Exams</h2>
-                <p style="font-size: 20px;">{{ exams_count }} Upcoming</p>
+                <h2 style="color:rgb(44, 83, 51);">Exams</h2>
+                <p style="font-size: 20px; color:rgb(44, 83, 51);">{{ exams_count }} Upcoming</p>
             </div>
         </div>
 
@@ -327,10 +327,10 @@
                     </div>
                 </div>-->
             {% else %}
-                <h1 style="font-size:40px; text-align:center; margin-top: 300px">
+                <h1 style="font-size:40px; text-align:center; margin-top: 300px; color:rgb(44, 83, 51);">
                 Welcome to Todue — Keep Your Assignments Organized and On Track!
                 </h1>
-                <h2 style="font-size:30px; text-align:center;"><a href="{% url 'signup' %}">Sign Up</a> or <a href="{% url 'login' %}">Log In</a> to Get Started</h2>
+                <h2 style="font-size:30px; text-align:center; color:rgb(44, 83, 51);"><a href="{% url 'signup' %}">Sign Up</a> or <a href="{% url 'login' %}">Log In</a> to Get Started</h2>
             {% endif %}
         </div>
     </body>

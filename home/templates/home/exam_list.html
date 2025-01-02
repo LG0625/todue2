@@ -404,11 +404,11 @@ box-shadow: none;
             </div>
         </a>
         <ul id="nav-links">
-            <a href="{% url 'dashboard' %}"><li>Dashboard</li></a>
-            <a href="{% url 'assignment_list' %}"><li>Assignments</li></a>
-            <a href="{% url 'exam_list' %}"><li>Exams</li></a>
-            <a href="{% url 'calendar' %}"><li>Calendar</li></a>
-            <a href="{% url 'settingss' %}"><li>Settings</li></a>
+            <a href="{% url 'dashboard' %}"><li style="color:rgb(44, 83, 51);">Dashboard</li></a>
+            <a href="{% url 'assignment_list' %}"><li style="color:rgb(44, 83, 51);">Assignments</li></a>
+            <a href="{% url 'exam_list' %}"><li style="color:rgb(44, 83, 51);">Exams</li></a>
+            <a href="{% url 'calendar' %}"><li style="color:rgb(44, 83, 51);">Calendar</li></a>
+            <a href="{% url 'settingss' %}"><li style="color:rgb(44, 83, 51);">Settings</li></a>
             {% if user.is_authenticated %}
                 <form id="logout-form" action="{% url 'logout' %}" method="post">
                     {% csrf_token %}
@@ -423,8 +423,8 @@ box-shadow: none;
       </button>
     </nav>
         <div class="container mt-5">
-          <h1 class="text-center mb-4">Exams</h1>
-          <div style="border-top: 3px solid #ccc; margin: 20px 10%; width: 80%; border-color: black; padding-bottom: 36px;"> </div>
+          <h1 style="color:rgb(44, 83, 51);" class="text-center mb-4">Exams</h1>
+          <div style="border-top: 3px solid #ccc; margin: 20px 10%; width: 80%; border-color: rgb(44, 83, 51); padding-bottom: 36px;"> </div>
           <div class="row">
             <div class="col-md-8" id="exam-list-container">
               {% if user.is_authenticated %}
@@ -440,20 +440,20 @@ box-shadow: none;
                     </a>
             </div>
             <table id="myTable" class="table table-striped table-bordered">
-              <thead style="border-bottom: 3px solid #000;">
+              <thead style="border-bottom: 3px solid #2c5333;">
                   <tr>
-                      <th data-column="title" data-order="desc" style="font-weight: 800; width: 160px;">
+                      <th data-column="title" data-order="desc" style="font-weight: 800; width: 160px; color: rgb(44, 83, 51);">
                           Title
                           <span class="desc"><i class="fa-solid fa-arrow-down"></i></span>
                       </th>
-                      <th data-column="due_date" data-order="desc" style="font-weight: 800;">
+                      <th data-column="due_date" data-order="desc" style="font-weight: 800; color: rgb(44, 83, 51);">
                           Exam Date
                           <span class="desc"><i class="fa-solid fa-arrow-down"></i></span>
                       </th>
-                      <th data-column="status" data-order="desc" style="font-weight: 800;">
+                      <th data-column="status" data-order="desc" style="font-weight: 800; color: rgb(44, 83, 51);">
                           Status
                       </th>
-                      <th data-column="action" data-order="desc" style="font-weight: 800;">
+                      <th data-column="action" data-order="desc" style="font-weight: 800; color: rgb(44, 83, 51);">
                           Action
                       </th>
                   </tr>
@@ -461,8 +461,8 @@ box-shadow: none;
               <tbody id="mytable">
                   {% for exam in exams %}
                   <tr class="exam-row" data-modal-id="examModal-{{ exam.pk }}">
-                      <td title="View details" style="font-size: 18px; font-weight: 500">{% if exam.title %}{{ exam.title }}{% else %}No title{% endif %}</td>
-                      <td title="View details" style="font-size: 18px; font-weight: 500">{{ exam.exam_date|date:"M. d, Y" }} At {{ exam.due_time|time:"g:i A" }}</td>
+                      <td title="View details" style="font-size: 18px; font-weight: 500; color: rgb(44, 83, 51)">{% if exam.title %}{{ exam.title }}{% else %}No title{% endif %}</td>
+                      <td title="View details" style="font-size: 18px; font-weight: 500; color: rgb(44, 83, 51)">{{ exam.exam_date|date:"M. d, Y" }} At {{ exam.due_time|time:"g:i A" }}</td>
                       <td>
                           <select class="dp" onchange="changeBackgroundColor(this)" value="{{ exam.status }}">
                               <option value="Not started" style="background-color: #f73b4b;" selected>Not Started</option>
@@ -497,39 +497,39 @@ box-shadow: none;
               </tbody>
           </table>
           {% if exams|length < 1 %}
-            <p style="text-align: center; margin-top: 57px; font-size: 34px;">You have no exams coming up! YAY!!</p>
+            <p style="text-align: center; margin-top: 57px; font-size: 34px; color: rgb(44, 83, 51);">You have no exams coming up! YAY!!</p>
           {% endif %}
             </div>
             <div class="col-md-4">
               <div class="panel panel-default" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px;">
                 <div class="panel-heading" style="background-color: #cfe6d5; padding: 10px; border-bottom: 1px solid #ccc;">
-                  <h4>Filters</h4>
+                  <h4 style="color:rgb(44, 83, 51);">Filters</h4>
                 </div>
                 <div class="panel-body">
                   <div style="margin-top: 20px;">
                     <div class="d-flex justify-content-between align-items-center">
                       <div>
-                        <label><strong>Filter by status:</strong></label>
+                        <label style="color:rgb(44, 83, 51);"><strong>Filter by status:</strong></label>
                         <div>
-                          <input class="cb" type="checkbox" id="not-started-filter"/> <label class="lb" for="not-started-filter">Not started</label>
+                          <input class="cb" type="checkbox" id="not-started-filter"/> <label style="color:rgb(44, 83, 51);" class="lb" for="not-started-filter">Not started</label>
                         </div>
                         <div>
-                          <input class="cb" type="checkbox" id="in-progress-filter"/> <label class="lb" for="in-progress-filter">In progress</label>
+                          <input class="cb" type="checkbox" id="in-progress-filter"/> <label style="color:rgb(44, 83, 51);" class="lb" for="in-progress-filter">In progress</label>
                         </div>
                         <div>
-                          <input class="cb" type="checkbox" id="completed-filter"/> <label class="lb" for="completed-filter">Completed</label>
+                          <input class="cb" type="checkbox" id="completed-filter"/> <label style="color:rgb(44, 83, 51);" class="lb" for="completed-filter">Completed</label>
                         </div>
                       </div>
                       <div>
-                        <label><strong>Filter by due date:</strong></label>
+                        <label style="color:rgb(44, 83, 51);"><strong>Filter by due date:</strong></label>
                         <div>
-                          <input class="cb" type="checkbox" id="overdue-filter" /> <label class="lb" for="overdue-filter">Overdue</label>
+                          <input class="cb" type="checkbox" id="overdue-filter" /> <label style="color:rgb(44, 83, 51);" class="lb" for="overdue-filter">Overdue</label>
                         </div>
                         <div>
-                          <input class="cb" type="checkbox" id="due-today-filter" /> <label class="lb" for="due-today-filter">Due today</label>
+                          <input class="cb" type="checkbox" id="due-today-filter" /> <label style="color:rgb(44, 83, 51);" class="lb" for="due-today-filter">Due today</label>
                         </div>
                         <div>
-                          <input class="cb" type="checkbox" id="upcoming-filter" /> <label class="lb" for="upcoming-filter">Upcoming</label>
+                          <input class="cb" type="checkbox" id="upcoming-filter" /> <label style="color:rgb(44, 83, 51);" class="lb" for="upcoming-filter">Upcoming</label>
                         </div>
                       </div>
                     </div>
