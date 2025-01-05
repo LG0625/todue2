@@ -472,26 +472,29 @@
                 </form>
             </div>
         </div>
+
+                
+        <div id="feedback-section" class="container">
+            <h2>Feedback</h2>
+            <p style="text-align: center;">If you have any suggestions or feedback about my site, please share them with me!</p>
+            <button id="open-feedback-modal" class="danger-btn" style="margin-top: 10px;">Give Feedback</button>
+        <!-- Feedback Modal -->
+<div id="feedback-modal" class="modal-overlay" style="display: none;">
+<div class="modal">
+    <span id="close-feedback-modal" class="close-btn">&times;</span>
+    <h3>Feedback</h3>
+    <form id="feedback-form">
+        {% csrf_token %}
+        <textarea style="font-size: 15px;" name="feedback_text" id="feedback-text" rows="5" placeholder="Enter your feedback here..." required></textarea>
+        <button type="submit" class="danger-btn" style="margin-top: 10px; background-color:rgb(62, 106, 216);">Submit</button>
+    </form>
+    <p id="feedback-response" style="margin-top: 10px;"></p>
+</div>
+</div>
+
         {% else %}
             <h2 style="font-size:30px; text-align:center;"><a href="{% url 'signup' %}">Sign Up</a> or <a href="{% url 'login' %}">Log In</a> to Get Started</h2>
         {% endif %}
-            <div id="feedback-section" class="container">
-                <h2>Feedback</h2>
-                <p style="text-align: center;">If you have any suggestions or feedback about my site, please share them with me!</p>
-                <button id="open-feedback-modal" class="danger-btn" style="margin-top: 10px;">Give Feedback</button>
-            <!-- Feedback Modal -->
-<div id="feedback-modal" class="modal-overlay" style="display: none;">
-    <div class="modal">
-        <span id="close-feedback-modal" class="close-btn">&times;</span>
-        <h3>Feedback</h3>
-        <form id="feedback-form">
-            {% csrf_token %}
-            <textarea style="font-size: 15px;" name="feedback_text" id="feedback-text" rows="5" placeholder="Enter your feedback here..." required></textarea>
-            <button type="submit" class="danger-btn" style="margin-top: 10px; background-color:rgb(62, 106, 216);">Submit</button>
-        </form>
-        <p id="feedback-response" style="margin-top: 10px;"></p>
-    </div>
-</div>
 
         </div>
     </body>
