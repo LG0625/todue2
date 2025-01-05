@@ -287,7 +287,7 @@
 
 /* Modal Box */
 .modal {
-    background: #fff;
+    background: #dae8e2;
     padding: 20px;
     border-radius: 8px;
     width: 400px;
@@ -308,7 +308,7 @@
 
 /* Feedback Textarea */
 #feedback-text {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     margin-top: 10px;
     border: 1px solid #ccc;
@@ -357,6 +357,13 @@
                     feedbackModal.style.display = 'none';
                     feedbackResponse.innerText = ''; // Clear response message
                 });
+
+                feedbackModal.addEventListener('click', (e) => {
+                    if (e.target === feedbackModal) { // Check if the click is on the backdrop
+                        feedbackModal.style.display = 'none';
+                        feedbackResponse.innerText = ''; // Clear response message
+                    }
+                });
         
                 // Define sleep function
                 function sleep(ms) {
@@ -388,8 +395,8 @@
                             feedbackResponse.style.color = 'green';
                             feedbackForm.reset();
         
-                            // Wait for 3 seconds before hiding modal
-                            await sleep(3000); // 3-second delay
+                            // Wait for 1.5 seconds before hiding modal
+                            await sleep(1500); // 1.5-second delay
         
                             feedbackModal.style.display = 'none';
                             feedbackResponse.innerText = '';
@@ -470,16 +477,16 @@
         {% endif %}
             <div id="feedback-section" class="container">
                 <h2>Feedback</h2>
-                <p>If you have any suggestions or feedback about my site, please share them with me!</p>
+                <p style="text-align: center;">If you have any suggestions or feedback about my site, please share them with me!</p>
                 <button id="open-feedback-modal" class="danger-btn" style="margin-top: 10px;">Give Feedback</button>
             <!-- Feedback Modal -->
 <div id="feedback-modal" class="modal-overlay" style="display: none;">
     <div class="modal">
         <span id="close-feedback-modal" class="close-btn">&times;</span>
-        <h3>Submit Feedback</h3>
+        <h3>Feedback</h3>
         <form id="feedback-form">
             {% csrf_token %}
-            <textarea name="feedback_text" id="feedback-text" rows="5" placeholder="Enter your feedback here..." required></textarea>
+            <textarea style="font-size: 15px;" name="feedback_text" id="feedback-text" rows="5" placeholder="Enter your feedback here..." required></textarea>
             <button type="submit" class="danger-btn" style="margin-top: 10px;">Submit</button>
         </form>
         <p id="feedback-response" style="margin-top: 10px;"></p>
