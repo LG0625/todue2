@@ -1,5 +1,5 @@
 from django import forms
-from .models import Assignment, Exam
+from .models import Assignment, Exam, Feedback
 
 class AssignmentForm(forms.ModelForm):
     class Meta:
@@ -11,7 +11,10 @@ class ExamForm(forms.ModelForm):
         model = Exam
         fields = ('title', 'description', 'exam_date', 'due_time')
 
-'''class FeedbackForm(forms.ModelForm):
+class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
-        fields = ['feedback_text']'''
+        fields = ['feedback_text']
+        widgets = {
+            'feedback_text': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Enter your feedback here...'}),
+        }

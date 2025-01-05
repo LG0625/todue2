@@ -270,26 +270,136 @@
             .danger-btn:hover {
                 background-color: #e53935;
             }
+
+            /* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Modal Box */
+.modal {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Feedback Textarea */
+#feedback-text {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
         </style>
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
+                // Logout functionality
                 const logoutLink = document.getElementById('logout-link');
                 const logoutForm = document.getElementById('logout-form');
-
                 logoutLink.addEventListener('click', function() {
                     logoutForm.submit();
                 });
-            });
-            document.addEventListener('DOMContentLoaded', function () {
+        
+                // Mobile menu toggle functionality
                 const toggleButton = document.getElementById('menu-toggle');
                 const navLinks = document.getElementById('nav-links');
-              
                 toggleButton.addEventListener('click', function () {
                     navLinks.classList.toggle('show');
                 });
+        
+                // Feedback form functionality
+                const feedbackSection = document.getElementById('feedback-section');
+                const feedbackModal = document.getElementById('feedback-modal');
+                const openFeedbackBtn = document.getElementById('open-feedback-modal');
+                const closeFeedbackBtn = document.getElementById('close-feedback-modal');
+                const feedbackForm = document.getElementById('feedback-form');
+                const feedbackResponse = document.getElementById('feedback-response');
+                
+                // Check if feedback has already been submitted
+                if (localStorage.getItem('feedbackSubmitted') === 'true') {
+                    feedbackSection.style.display = 'none';
+                }
+        
+                // Open modal
+                openFeedbackBtn.addEventListener('click', () => {
+                    feedbackModal.style.display = 'flex';
+                });
+        
+                // Close modal
+                closeFeedbackBtn.addEventListener('click', () => {
+                    feedbackModal.style.display = 'none';
+                    feedbackResponse.innerText = ''; // Clear response message
+                });
+        
+                // Submit feedback form via AJAX
+                feedbackForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+        
+                    const feedbackText = document.getElementById('feedback-text').value;
+                    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+        
+                    fetch("{% url 'feedback' %}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfToken,
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: JSON.stringify({ feedback_text: feedbackText })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            feedbackResponse.innerText = data.message;
+                            feedbackResponse.style.color = 'green';
+                            feedbackForm.reset();
+                            setTimeout(() => {
+                                feedbackModal.style.display = 'none';
+                                feedbackResponse.innerText = '';
+                            }, 3000);
+                            // Hide feedback section and store state in localStorage
+                            feedbackSection.style.display = 'none';
+                            localStorage.setItem('feedbackSubmitted', 'true');
+                        } else {
+                            feedbackResponse.innerText = 'Error: ' + JSON.stringify(data.errors);
+                            feedbackResponse.style.color = 'red';
+                        }
+                    })
+                    .catch(error => {
+                        feedbackResponse.innerText = 'An error occurred. Please try again later.';
+                        feedbackResponse.style.color = 'red';
+                    });
+                });
             });
         </script>
+        
     </head>
     <body>
         <nav class="nav-menu">
@@ -349,28 +459,24 @@
         {% else %}
             <h2 style="font-size:30px; text-align:center;"><a href="{% url 'signup' %}">Sign Up</a> or <a href="{% url 'login' %}">Log In</a> to Get Started</h2>
         {% endif %}
-        <!--<div class="container">
-            <h2>Feedback</h2>
-            <p>If you have any suggestions or feedback about our site, please share them with us below!</p>
-    
-            
-            <form method="POST">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="feedback_text">Your Feedback:</label>
-                    {{ form.as_p }}
-                </div>
-                <button type="submit">Submit Feedback</button>
-            </form>
+            <div id="feedback-section" class="container">
+                <h2>Feedback</h2>
+                <p>If you have any suggestions or feedback about our site, please share them with us below!</p>
+                <button id="open-feedback-modal" class="danger-btn" style="margin-top: 10px;">Give Feedback</button>
+            <!-- Feedback Modal -->
+<div id="feedback-modal" class="modal-overlay" style="display: none;">
+    <div class="modal">
+        <span id="close-feedback-modal" class="close-btn">&times;</span>
+        <h3>Submit Feedback</h3>
+        <form id="feedback-form">
+            {% csrf_token %}
+            <textarea name="feedback_text" id="feedback-text" rows="5" placeholder="Enter your feedback here..." required></textarea>
+            <button type="submit" class="danger-btn" style="margin-top: 10px;">Submit</button>
+        </form>
+        <p id="feedback-response" style="margin-top: 10px;"></p>
+    </div>
+</div>
 
-
-            {% if messages %}
-                <div class="messages">
-                    {% for message in messages %}
-                        <p>{{ message }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        </div>-->
+        </div>
     </body>
 </html>

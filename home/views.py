@@ -1,13 +1,15 @@
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Assignment, Exam
-from .forms import AssignmentForm, ExamForm
+from .models import Assignment, Exam, Feedback
+from .forms import AssignmentForm, ExamForm, FeedbackForm
 from urllib.parse import urlencode
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import HttpResponseForbidden
+from django.http import JsonResponse
+import json
 
 @login_required
 def delete_account(request):
@@ -216,3 +218,27 @@ def add_to_google_calendar(request, event_type, event_id):
     return redirect(google_calendar_url)
 
 
+def feedback(request):
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        try:
+            data = json.loads(request.body)
+            
+            # Check if the user has already submitted feedback
+            if request.user.is_authenticated and Feedback.objects.filter(user=request.user).exists():
+                return JsonResponse({'success': False, 'errors': {'feedback_text': 'You have already submitted feedback.'}})
+            
+            form = FeedbackForm(data)  
+
+            if form.is_valid():
+                feedback_instance = form.save(commit=False)
+                if request.user.is_authenticated:
+                    feedback_instance.user = request.user
+                feedback_instance.save()
+                return JsonResponse({'success': True, 'message': 'Thank you for your feedback!'})
+            else:
+                return JsonResponse({'success': False, 'errors': form.errors})
+        
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'errors': {'feedback_text': 'Invalid JSON data'}})
+    
+    return JsonResponse({'success': False, 'errors': {'feedback_text': 'Invalid request method'}})
